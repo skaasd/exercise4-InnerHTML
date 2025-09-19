@@ -84,7 +84,6 @@ const propiedades_venta = [
   },
 ];
 
-
 // === Contenedores ===
 const ventasContainer = document.querySelector("#venta");
 const alquileresContainer = document.querySelector("#alquiler");
@@ -100,13 +99,19 @@ function renderPropiedades(lista, titulo, limite = null) {
     html += `
       <div class="col-md-4 mb-4">
         <div class="card h-100">
-          <img src="${propiedad.src}" class="card-img-top" alt="${propiedad.nombre}" />
+          <img src="${propiedad.src}" class="card-img-top" alt="${
+      propiedad.nombre
+    }" />
           <div class="card-body">
             <h5 class="card-title">${propiedad.nombre}</h5>
             <p class="card-text">${propiedad.descripcion}</p>
             <p><i class="fas fa-map-marker-alt"></i> ${propiedad.ubicacion}</p>
-            <p><i class="fas fa-bed"></i> ${propiedad.habitaciones} Habitaciones</p>
-            <p><i class="fas fa-dollar-sign"></i> ${propiedad.costo.toLocaleString('es-CL')}</p>
+            <p><i class="fas fa-bed"></i> ${
+              propiedad.habitaciones
+            } Habitaciones</p>
+            <p><i class="fas fa-dollar-sign"></i> ${propiedad.costo.toLocaleString(
+              "es-CL"
+            )}</p>
 
             ${
               propiedad.smoke
@@ -132,12 +137,20 @@ function renderPropiedades(lista, titulo, limite = null) {
 // === Cargadores específicos ===
 function cargarPropiedadesVenta(limite = null) {
   if (!ventasContainer) return;
-  ventasContainer.innerHTML = renderPropiedades(propiedades_venta, "Propiedades en venta", limite);
+  ventasContainer.innerHTML = renderPropiedades(
+    propiedades_venta,
+    "Propiedades en venta",
+    limite
+  );
 }
 
 function cargarPropiedadesAlquiler(limite = null) {
   if (!alquileresContainer) return;
-  alquileresContainer.innerHTML = renderPropiedades(propiedades_alquiler, "Propiedades en alquiler", limite);
+  alquileresContainer.innerHTML = renderPropiedades(
+    propiedades_alquiler,
+    "Propiedades en alquiler",
+    limite
+  );
 }
 
 // === Enrutado sencillo por nombre de archivo ===
