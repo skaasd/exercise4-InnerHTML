@@ -85,8 +85,8 @@ const propiedades_venta = [
 ];
 
 // === Contenedores ===
-const ventasContainer = document.querySelector("#venta");
-const alquileresContainer = document.querySelector("#alquiler");
+const ventasContainer = document.getElementById("#venta");
+const alquileresContainer = document.getElementById("#alquiler");
 
 // === Render genérico ===
 function renderPropiedades(lista, titulo, limite = null) {
