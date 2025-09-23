@@ -85,11 +85,11 @@ const propiedades_venta = [
 ];
 
 // === Contenedores ===
-const ventasContainer = document.getElementById("#venta");
-const alquileresContainer = document.getElementById("#alquiler");
+const ventasContainer = document.querySelector("#venta");
+const alquileresContainer = document.querySelector("#alquiler");
 
 // === Render genérico ===
-function renderPropiedades(lista, titulo, limite = null) {
+const renderPropiedades = (lista, titulo, limite = null) => {
   let html = `<h5 class="mb-3">${titulo}</h5><div class="row">`;
 
   // si hay límite, cortamos el array
@@ -132,7 +132,7 @@ function renderPropiedades(lista, titulo, limite = null) {
 
   html += `</div>`;
   return html;
-}
+};
 
 // === Cargadores específicos ===
 function cargarPropiedadesVenta(limite = null) {
