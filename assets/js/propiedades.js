@@ -173,3 +173,69 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarPropiedadesAlquiler(3);
   }
 });
+
+const $ = (sel) => document.querySelector(sel);
+const ventasContainer = $("#venta");
+const alquileresContainer = $("#alquiler");
+
+// 2) Tarjeta (unidad mínima)
+const renderCard = (p) => `
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <img src="${p.src}" class="card-img-top" alt="${p.nombre}" />
+      <div class="card-body">
+        <h5 class="card-title">${p.nombre}</h5>
+        <p class="card-text">${p.descripcion}</p>
+        <p><i class="fas fa-map-marker-alt"></i> ${p.ubicacion}</p>
+        <p><i class="fas fa-bed"></i> ${p.habitaciones} Habitaciones</p>
+        <p><i class="fas fa-dollar-sign"></i> ${p.costo.toLocaleString("es-CL")}</p>
+        ${
+          p.smoke
+            ? '<p class="text-success"><i class="fas fa-smoking"></i> Se permite fumar</p>'
+            : '<p class="text-danger"><i class="fas fa-smoking-ban"></i> No se permite fumar</p>'
+        }
+        ${
+          p.pets
+            ? '<p class="text-success"><i class="fas fa-paw"></i> Se permiten mascotas</p>'
+            : '<p class="text-danger"><i class="fas fa-ban"></i> No se permiten mascotas</p>'
+        }
+      </div>
+    </div>
+  </div>
+`;
+
+// 3) Lista (usa la tarjeta)
+const renderPropiedades = (lista, titulo, limite = null) => {
+  const items = (limite ? lista.slice(0, limite) : lista)
+    .map(renderCard)
+    .join("");
+  return `<h5 class="mb-3">${titulo}</h5><div class="row">${items}</div>`;
+};
+
+// 4) Cargadores (montaje)
+const cargarPropiedadesVenta = (limite = null) => {
+  if (ventasContainer) ventasContainer.innerHTML =
+    renderPropiedades(propiedades_venta, "Propiedades en venta", limite);
+};
+const cargarPropiedadesAlquiler = (limite = null) => {
+  if (alquileresContainer) alquileresContainer.innerHTML =
+    renderPropiedades(propiedades_alquiler, "Propiedades en alquiler", limite);
+};
+
+// 5) Arranque (mejor sin depender del nombre del archivo)
+document.addEventListener("DOMContentLoaded", () => {
+  // Opción robusta: marca la página en <body data-page="index|venta|alquiler">
+  const page = document.body.dataset.page || "index";
+
+  if (page === "index") {
+    cargarPropiedadesVenta(3);
+    cargarPropiedadesAlquiler(3);
+  } else if (page === "venta") {
+    cargarPropiedadesVenta();
+    if (alquileresContainer) alquileresContainer.style.display = "none";
+  } else if (page === "alquiler") {
+    cargarPropiedadesAlquiler();
+    if (ventasContainer) ventasContainer.style.display = "none";
+  } else {
+    // fallback
+    carga
